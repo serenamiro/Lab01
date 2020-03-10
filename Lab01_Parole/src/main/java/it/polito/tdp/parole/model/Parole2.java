@@ -1,19 +1,18 @@
 package it.polito.tdp.parole.model;
 
-import java.util.LinkedList;
+
+import java.util.ArrayList;
 import java.util.List;
 
-public class Parole implements Comparable<String> {
+public class Parole2 implements Comparable<String>{
+	ArrayList parole;
 	
-	List<String> parole;
-		
-	public Parole() {
+	public Parole2() {
 		//TODO
-		parole = new LinkedList<String>(); 
+		parole = new ArrayList(); 
 	}
 	
 	public void addParola(String p) {
-		//TODO
 		parole.add(p);
 	}
 	

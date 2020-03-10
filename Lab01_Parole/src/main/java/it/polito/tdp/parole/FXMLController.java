@@ -1,6 +1,6 @@
 package it.polito.tdp.parole;
 
-import it.polito.tdp.parole.model.Parole;
+import it.polito.tdp.parole.model.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,18 +28,60 @@ public class FXMLController {
 
     @FXML
     private TextArea txtResult;
+    
+    @FXML
+    private TextArea txtTempi;
 
     @FXML
     private Button btnReset;
+    
+    @FXML
+    private Button btnCancella;
+
+    @FXML
+    void doCancella(ActionEvent event) {
+    	long startTime = System.nanoTime();
+    	elenco.cancella(txtResult.getSelectedText());
+    	txtResult.clear();
+    	txtTempi.clear();
+    	for(String s : elenco.getElenco()) {
+    		txtResult.appendText(s+"\n");
+    	}
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTempi.appendText("Tempo impiegato per l'operazione: "+elapsedNanos+" nanosecondi.");
+    }
+
 
     @FXML
     void doInsert(ActionEvent event) {
     	// TODO
+    	long startTime = System.nanoTime();
+    	String p = txtParola.getText();
+    	if(p.length() == 0) {
+    		txtResult.appendText("INSERISCI UNA PAROLA.");
+    		return;
+    	}
+    	txtTempi.clear();
+    	txtResult.clear();
+    	elenco.addParola(p);
+    	txtParola.clear();
+    	txtResult.clear();
+    	for(String s : elenco.getElenco()) {
+    		txtResult.appendText(s+"\n");
+    	}
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTempi.appendText("Tempo impiegato per l'operazione: "+elapsedNanos+" nanosecondi.");
     }
 
     @FXML
     void doReset(ActionEvent event) {
     	// TODO
+    	long startTime = System.nanoTime();
+    	elenco.reset();
+    	txtResult.clear();
+    	txtTempi.clear();
+    	long elapsedNanos = System.nanoTime() - startTime;
+    	txtTempi.appendText("Tempo impiegato per l'operazione: "+elapsedNanos+" nanosecondi.");
     }
 
     @FXML
